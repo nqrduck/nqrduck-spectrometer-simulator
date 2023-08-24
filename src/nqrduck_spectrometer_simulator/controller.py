@@ -63,35 +63,35 @@ class SimulatorController(BaseSpectrometerController):
             if samplesetting.name == model.NAME:
                 name = samplesetting.value
             elif samplesetting.name == model.DENSITY:
-                density = samplesetting.value
+                density = float(samplesetting.value)
             elif samplesetting.name == model.MOLAR_MASS:
-                molar_mass = samplesetting.value
+                molar_mass = float(samplesetting.value)
             elif samplesetting.name == model.RESONANT_FREQUENCY:
-                resonant_frequency = samplesetting.value
+                resonant_frequency = float(samplesetting.value)
             elif samplesetting.name == model.GAMMA:
-                gamma = samplesetting.value
+                gamma = float(samplesetting.value)
             elif samplesetting.name == model.NUCLEAR_SPIN:
-                nuclear_spin = samplesetting.value
+                nuclear_spin = float(samplesetting.value)
             elif samplesetting.name == model.SPIN_FACTOR:
-                spin_factor = samplesetting.value
+                spin_factor = float(samplesetting.value)
             elif samplesetting.name == model.POWDER_FACTOR:
-                powder_factor = samplesetting.value
+                powder_factor = float(samplesetting.value)
             elif samplesetting.name == model.FILLING_FACTOR:
-                filling_factor = samplesetting.value
+                filling_factor = float(samplesetting.value)
             elif samplesetting.name == model.T1:
-                T1 = samplesetting.value
+                T1 = float(samplesetting.value)
             elif samplesetting.name == model.T2:
-                T2 = samplesetting.value
+                T2 = float(samplesetting.value)
             elif samplesetting.name == model.T2_STAR:
-                T2_star = samplesetting.value
+                T2_star = float(samplesetting.value)
             elif samplesetting.name == model.ATOM_DENSITY:
-                atom_density = samplesetting.value
+                atom_density = float(samplesetting.value)
             elif samplesetting.name == model.SAMPLE_VOLUME:
-                sample_volume = samplesetting.value
+                sample_volume = float(samplesetting.value)
             elif samplesetting.name == model.SAMPLE_LENGTH:
-                sample_length = samplesetting.value
+                sample_length = float(samplesetting.value)
             elif samplesetting.name == model.SAMPLE_DIAMETER:
-                sample_diameter = samplesetting.value
+                sample_diameter = float(samplesetting.value)
             else:
                 logger.warning("Unknown sample setting: %s", samplesetting.name)
                 self.module.nqrduck_signal.emit(
@@ -180,22 +180,24 @@ class SimulatorController(BaseSpectrometerController):
             Simulation: The simulation object created from the settings and the pulse sequence.
         """
         model = self.module.model
+
+        noise = float(model.get_setting_by_name(model.NOISE).value)
         simulation = Simulation(
             sample = sample,
             pulse = pulse_array,
-            number_isochromats = model.get_setting_by_name(model.NUMBER_ISOCHROMATS).value,
-            initial_magnetization = model.get_setting_by_name(model.INITIAL_MAGNETIZATION).value,
-            gradient = model.get_setting_by_name(model.GRADIENT).value,
-            noise = model.get_setting_by_name(model.NOISE).value,
-            length_coil = model.get_setting_by_name(model.LENGTH_COIL).value,
-            diameter_coil = model.get_setting_by_name(model.DIAMETER_COIL).value,
-            number_turns = model.get_setting_by_name(model.NUMBER_TURNS).value,
-            power_amplifier_power = model.get_setting_by_name(model.POWER_AMPLIFIER_POWER).value,
-            gain = model.get_setting_by_name(model.GAIN).value,
-            temperature = model.get_setting_by_name(model.TEMPERATURE).value,
-            averages = model.averages,
-            loss_TX = model.get_setting_by_name(model.LOSS_TX).value,
-            loss_RX = model.get_setting_by_name(model.LOSS_RX).value
+            number_isochromats = int(model.get_setting_by_name(model.NUMBER_ISOCHROMATS).value),
+            initial_magnetization = float(model.get_setting_by_name(model.INITIAL_MAGNETIZATION).value),
+            gradient = float(model.get_setting_by_name(model.GRADIENT).value),
+            noise = float(model.get_setting_by_name(model.NOISE).value),
+            length_coil = float(model.get_setting_by_name(model.LENGTH_COIL).value),
+            diameter_coil = float(model.get_setting_by_name(model.DIAMETER_COIL).value),
+            number_turns = float(model.get_setting_by_name(model.NUMBER_TURNS).value),
+            power_amplifier_power =float( model.get_setting_by_name(model.POWER_AMPLIFIER_POWER).value),
+            gain = float(model.get_setting_by_name(model.GAIN).value),
+            temperature = float(model.get_setting_by_name(model.TEMPERATURE).value),
+            averages = int(model.averages),
+            loss_TX = float(model.get_setting_by_name(model.LOSS_TX).value),
+            loss_RX = float(model.get_setting_by_name(model.LOSS_RX).value)
         )
         return simulation
                     
@@ -206,7 +208,7 @@ class SimulatorController(BaseSpectrometerController):
         Returns:
             float: The dwell time in seconds.
         """
-        n_points = self.module.model.get_setting_by_name(self.module.model.NUMBER_POINTS).value
+        n_points = int(self.module.model.get_setting_by_name(self.module.model.NUMBER_POINTS).value)
         simulation_length = self.calculate_simulation_length()
         dwell_time = simulation_length / n_points
         return dwell_time

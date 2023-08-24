@@ -56,7 +56,7 @@ class SimulatorModel(BaseSpectrometerModel):
         # Simulation settings
         self.add_setting(
             self.NUMBER_POINTS,
-            300,
+            512,
             "Number of points used for the simulation. This influences the dwell time in combination with the total event simulation given by the pulse sequence. ",
             self.SIMULATION,
         )
@@ -67,9 +67,9 @@ class SimulatorModel(BaseSpectrometerModel):
             self.INITIAL_MAGNETIZATION, 1, "Initial magnetization", self.SIMULATION
         )
         self.add_setting(self.GRADIENT, 1, "Gradient", self.SIMULATION)
-        self.add_setting(self.NOISE, 0, "Noise", self.SIMULATION)
-        self.add_setting(self.LENGTH_COIL, 6, "Length coil", self.HARDWARE)
-        self.add_setting(self.DIAMETER_COIL, 3, "Diameter coil", self.HARDWARE)
+        self.add_setting(self.NOISE, 200, "Noise", self.SIMULATION)
+        self.add_setting(self.LENGTH_COIL, 6e-3, "Length coil", self.HARDWARE)
+        self.add_setting(self.DIAMETER_COIL, 3e-3, "Diameter coil", self.HARDWARE)
         self.add_setting(self.NUMBER_TURNS, 9, "Number turns", self.HARDWARE)
         self.add_setting(
             self.POWER_AMPLIFIER_POWER, 500, "Power amplifier power", self.HARDWARE
