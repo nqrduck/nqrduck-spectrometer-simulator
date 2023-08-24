@@ -7,7 +7,7 @@ allow-direct-references = true
 
 [project]
 name = "nqrduck-spectrometer-simulator"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Julia Pfitzer", email="git@jupfi.me" },
 ]
@@ -26,6 +26,8 @@ classifiers = [
 dependencies = [
     "nqrduck-spectrometer",
     "pyqt6",
+    "numpy",
+    "nqr_blochsimulator@git+https://github.com/jupfi/nqr-blochsimulator.git",
 ]
 
 [project.entry-points."nqrduck"]
