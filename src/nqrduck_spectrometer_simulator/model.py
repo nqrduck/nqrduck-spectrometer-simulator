@@ -102,6 +102,8 @@ class SimulatorModel(BaseSpectrometerModel):
         # self.add_pulse_parameter_option(self.GATE, Gate)
         self.add_pulse_parameter_option(self.RX, RXReadout)
 
+        self.averages = 1
+
         # Try to load the pulse programmer module
         try:
             from nqrduck_pulseprogrammer.pulseprogrammer import pulse_programmer
