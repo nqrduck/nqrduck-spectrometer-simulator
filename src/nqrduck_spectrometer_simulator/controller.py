@@ -30,7 +30,7 @@ class SimulatorController(BaseSpectrometerController):
 
         simulation = self.get_simulation(sample, pulse_array)
 
-        result = abs(simulation.simulate())
+        result = simulation.simulate() * 1/1622137.746
 
         tdx = (
             np.linspace(0, float(self.calculate_simulation_length()), len(result)) * 1e6
@@ -45,7 +45,7 @@ class SimulatorController(BaseSpectrometerController):
 
         measurement_data = Measurement(
             tdx,
-            result / self.module.model.averages,
+            result,
             sample.resonant_frequency,
             # frequency_shift=self.module.model.if_frequency,
         )
