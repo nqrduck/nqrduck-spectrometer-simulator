@@ -30,7 +30,7 @@ class SimulatorController(BaseSpectrometerController):
 
         simulation = self.get_simulation(sample, pulse_array)
 
-        result = simulation.simulate() * 1/1622137.746
+        result = simulation.simulate()
 
         tdx = (
             np.linspace(0, float(self.calculate_simulation_length()), len(result)) * 1e6
@@ -41,11 +41,11 @@ class SimulatorController(BaseSpectrometerController):
         if rx_begin and rx_stop:
             evidx = np.where((tdx > rx_begin) & (tdx < rx_stop))[0]
             tdx = tdx[evidx]
-            result = result[evidx]
+            result = result[evidx] * 1e-2 # Unit correction
 
         measurement_data = Measurement(
             tdx,
-            result,
+            result / simulation.averages,
             sample.resonant_frequency,
             # frequency_shift=self.module.model.if_frequency,
         )
@@ -214,6 +214,12 @@ class SimulatorController(BaseSpectrometerController):
             length_coil=float(model.get_setting_by_name(model.LENGTH_COIL).value),
             diameter_coil=float(model.get_setting_by_name(model.DIAMETER_COIL).value),
             number_turns=float(model.get_setting_by_name(model.NUMBER_TURNS).value),
+            q_factor_transmitt=float(
+                model.get_setting_by_name(model.Q_FACTOR_TRANSMITT).value
+            ),
+            q_factor_receive=float(
+                model.get_setting_by_name(model.Q_FACTOR_RECEIVE).value
+            ),
             power_amplifier_power=float(
                 model.get_setting_by_name(model.POWER_AMPLIFIER_POWER).value
             ),
@@ -222,6 +228,9 @@ class SimulatorController(BaseSpectrometerController):
             averages=int(model.averages),
             loss_TX=float(model.get_setting_by_name(model.LOSS_TX).value),
             loss_RX=float(model.get_setting_by_name(model.LOSS_RX).value),
+            conversion_factor=float(
+                model.get_setting_by_name(model.CONVERSION_FACTOR).value
+            ),
         )
         return simulation
 

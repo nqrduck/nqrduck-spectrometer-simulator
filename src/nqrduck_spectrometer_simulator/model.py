@@ -12,15 +12,20 @@ class SimulatorModel(BaseSpectrometerModel):
     INITIAL_MAGNETIZATION = "Initial magnetization"
     GRADIENT = "Gradient (mT/m))"
     NOISE = "Noise (uV)"
+
+    # Hardware settings
     LENGTH_COIL = "Length coil (m)"
     DIAMETER_COIL = "Diameter coil (m)"
     NUMBER_TURNS = "Number turns"
+    Q_FACTOR_TRANSMITT = "Q factor Transmitt"
+    Q_FACTOR_RECEIVE = "Q factor Receive"
     POWER_AMPLIFIER_POWER = "PA power (W)"
     GAIN = "Gain"
     TEMPERATURE = "Temperature (K)"
     AVERAGES = "Averages"
     LOSS_TX = "Loss TX (dB)"
     LOSS_RX = "Loss RX (dB)"
+    CONVERSION_FACTOR = "Conversion factor"
 
     # Sample settinggs, this will  be done in a seperate module later on
     NAME = "Name"
@@ -56,7 +61,7 @@ class SimulatorModel(BaseSpectrometerModel):
         # Simulation settings
         self.add_setting(
             self.NUMBER_POINTS,
-            1024,
+            4096,
             "Number of points used for the simulation. This influences the dwell time in combination with the total event simulation given by the pulse sequence. ",
             self.SIMULATION,
         )
@@ -67,19 +72,24 @@ class SimulatorModel(BaseSpectrometerModel):
             self.INITIAL_MAGNETIZATION, 1, "Initial magnetization", self.SIMULATION
         )
         self.add_setting(self.GRADIENT, 1, "Gradient", self.SIMULATION)
-        self.add_setting(self.NOISE, 2000, "Noise", self.SIMULATION)
+        self.add_setting(self.NOISE, 2, "Noise", self.SIMULATION)
         self.add_setting(self.LENGTH_COIL, 6e-3, "Length coil", self.HARDWARE)
         self.add_setting(self.DIAMETER_COIL, 3e-3, "Diameter coil", self.HARDWARE)
         self.add_setting(self.NUMBER_TURNS, 9, "Number turns", self.HARDWARE)
+        self.add_setting(self.Q_FACTOR_TRANSMITT, 100, "Q factor Transmitt", self.HARDWARE)
+        self.add_setting(self.Q_FACTOR_RECEIVE, 100, "Q factor Receive", self.HARDWARE)
         self.add_setting(
-            self.POWER_AMPLIFIER_POWER, 500, "Power amplifier power", self.HARDWARE
+            self.POWER_AMPLIFIER_POWER, 110, "Power amplifier power", self.HARDWARE
         )
         self.add_setting(
             self.GAIN, 6000, "Gain of the complete measurement chain", self.HARDWARE
         )
         self.add_setting(self.TEMPERATURE, 300, "Temperature", self.EXPERIMENTAL_Setup)
-        self.add_setting(self.LOSS_TX, 12, "Loss TX", self.EXPERIMENTAL_Setup)
-        self.add_setting(self.LOSS_RX, 12, "Loss RX", self.EXPERIMENTAL_Setup)
+        self.add_setting(self.LOSS_TX, 30, "Loss TX", self.EXPERIMENTAL_Setup)
+        self.add_setting(self.LOSS_RX, 30, "Loss RX", self.EXPERIMENTAL_Setup)
+        self.add_setting(
+            self.CONVERSION_FACTOR, 2884, "Conversion factor  (spectrometer units / V)", self.EXPERIMENTAL_Setup
+        ) # Conversion factor for the LimeSDR based spectrometer
 
         # Sample settings
         self.add_setting(self.NAME, "BiPh3", "Name", self.SAMPLE)
