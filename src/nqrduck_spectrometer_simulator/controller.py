@@ -41,7 +41,7 @@ class SimulatorController(BaseSpectrometerController):
         if rx_begin and rx_stop:
             evidx = np.where((tdx > rx_begin) & (tdx < rx_stop))[0]
             tdx = tdx[evidx]
-            result = result[evidx] * 1e-2 # Unit correction
+            result = result[evidx]
 
         measurement_data = Measurement(
             tdx,

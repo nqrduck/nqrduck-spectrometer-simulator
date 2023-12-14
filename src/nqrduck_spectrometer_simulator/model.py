@@ -61,7 +61,7 @@ class SimulatorModel(BaseSpectrometerModel):
         # Simulation settings
         self.add_setting(
             self.NUMBER_POINTS,
-            4096,
+            8192,
             "Number of points used for the simulation. This influences the dwell time in combination with the total event simulation given by the pulse sequence. ",
             self.SIMULATION,
         )
@@ -73,11 +73,11 @@ class SimulatorModel(BaseSpectrometerModel):
         )
         self.add_setting(self.GRADIENT, 1, "Gradient", self.SIMULATION)
         self.add_setting(self.NOISE, 2, "Noise", self.SIMULATION)
-        self.add_setting(self.LENGTH_COIL, 6e-3, "Length coil", self.HARDWARE)
-        self.add_setting(self.DIAMETER_COIL, 3e-3, "Diameter coil", self.HARDWARE)
-        self.add_setting(self.NUMBER_TURNS, 9, "Number turns", self.HARDWARE)
-        self.add_setting(self.Q_FACTOR_TRANSMITT, 100, "Q factor Transmitt", self.HARDWARE)
-        self.add_setting(self.Q_FACTOR_RECEIVE, 100, "Q factor Receive", self.HARDWARE)
+        self.add_setting(self.LENGTH_COIL, 30e-3, "Length coil", self.HARDWARE)
+        self.add_setting(self.DIAMETER_COIL, 8e-3, "Diameter coil", self.HARDWARE)
+        self.add_setting(self.NUMBER_TURNS, 8, "Number turns", self.HARDWARE)
+        self.add_setting(self.Q_FACTOR_TRANSMITT, 80, "Q factor Transmitt", self.HARDWARE)
+        self.add_setting(self.Q_FACTOR_RECEIVE, 80, "Q factor Receive", self.HARDWARE)
         self.add_setting(
             self.POWER_AMPLIFIER_POWER, 110, "Power amplifier power", self.HARDWARE
         )
@@ -85,8 +85,8 @@ class SimulatorModel(BaseSpectrometerModel):
             self.GAIN, 6000, "Gain of the complete measurement chain", self.HARDWARE
         )
         self.add_setting(self.TEMPERATURE, 300, "Temperature", self.EXPERIMENTAL_Setup)
-        self.add_setting(self.LOSS_TX, 30, "Loss TX", self.EXPERIMENTAL_Setup)
-        self.add_setting(self.LOSS_RX, 30, "Loss RX", self.EXPERIMENTAL_Setup)
+        self.add_setting(self.LOSS_TX, 25, "Loss TX", self.EXPERIMENTAL_Setup)
+        self.add_setting(self.LOSS_RX, 25, "Loss RX", self.EXPERIMENTAL_Setup)
         self.add_setting(
             self.CONVERSION_FACTOR, 2884, "Conversion factor  (spectrometer units / V)", self.EXPERIMENTAL_Setup
         ) # Conversion factor for the LimeSDR based spectrometer
