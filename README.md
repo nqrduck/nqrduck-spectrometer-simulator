@@ -1,0 +1,26 @@
+# NQRduck Module: Spectrometer Simulator
+This module is a part of the NQRduck project. It is a submodule of the [spectrometer module](https://github.com/nqrduck/nqrduck-spectrometer) for the NQRduck project. It is designed to be used with the [NQRduck](https://github.com/nqrduck) project.
+
+The module is used to simulate magnetic resonance experiments. It is based on the Bloch simulator by C. Graf [2].
+
+## Installation
+
+
+### Requirements
+The requirements for the module are handled by the pyproject.toml file. The user needs to install the NQRduck core.
+The simulator module uses the [nqr-blochsimulator](https://github.com/nqrduck/nqr-blochsimulator) project for simulation of the bloch equation. This  module is automatically installed when installing the simulator module.
+
+### Setup
+
+
+## Usage
+The pulse sequence is graphically programmed using the [nqrduck-pulseprogrammer](htpps://github.com/nqrduck-pulseprogrammer) within the NQRduck program under the 'Spectrometer' tab. 
+
+
+### Notes
+The simulator is only usable for Nuclear Quadrupole Resonance (NQR) experiments. It is not intended for Nuclear Magnetic Resonance (NMR) experiments at the moment. This is because the signal equation is different for NMR and NQR. The current implementation does not include the (permanent) $B_0$ field or the z-gradient. I hope to implement NMR simulations in the future.
+
+Additionally this simulator has only been  verified for one sample (BiPh3 at 300K). The simulator should therefore be used with caution and the results should be verified with a real spectrometer.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
