@@ -11,7 +11,17 @@ The requirements for the module are handled by the pyproject.toml file. The user
 The simulator module uses the [nqr-blochsimulator](https://github.com/nqrduck/nqr-blochsimulator) project for simulation of the bloch equation. This  module is automatically installed when installing the simulator module.
 
 ### Setup
+To install the module you need the NQRduck core. You can find the installation instructions for the NQRduck core [here](https://github.com/nqrduck/nqrduck).
 
+Ideally you should install the module in a virtual environment. You can create a virtual environment by running the following command in the terminal:
+```bash
+python -m venv nqrduck
+```
+
+You can install this module and the dependencies by running the following command in the terminal:
+```bash
+pip install .
+```
 
 ## Usage
 The pulse sequence is graphically programmed using the [nqrduck-pulseprogrammer](htpps://github.com/nqrduck-pulseprogrammer) within the NQRduck program under the 'Spectrometer' tab. 
