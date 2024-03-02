@@ -214,8 +214,8 @@ class SimulatorController(BaseSpectrometerController):
             length_coil=float(model.get_setting_by_name(model.LENGTH_COIL).value),
             diameter_coil=float(model.get_setting_by_name(model.DIAMETER_COIL).value),
             number_turns=float(model.get_setting_by_name(model.NUMBER_TURNS).value),
-            q_factor_transmitt=float(
-                model.get_setting_by_name(model.Q_FACTOR_TRANSMITT).value
+            q_factor_transmit=float(
+                model.get_setting_by_name(model.Q_FACTOR_TRANSMIT).value
             ),
             q_factor_receive=float(
                 model.get_setting_by_name(model.Q_FACTOR_RECEIVE).value
