@@ -283,6 +283,7 @@ class SimulatorModel(BaseSpectrometerModel):
         self.add_pulse_parameter_option(self.RX, RXReadout)
 
         self.averages = 1
+        self.target_frequency  = 100e6
 
         # Try to load the pulse programmer module
         try:
@@ -301,3 +302,12 @@ class SimulatorModel(BaseSpectrometerModel):
     @averages.setter
     def averages(self, value):
         self._averages = value
+
+    @property
+    def target_frequency(self):
+        return self._target_frequency
+    
+    @target_frequency.setter
+    def target_frequency(self, value):
+        self._target_frequency = value
+

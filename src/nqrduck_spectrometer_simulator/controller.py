@@ -302,13 +302,16 @@ class SimulatorController(BaseSpectrometerController):
         """This method is called when the set_frequency signal is received from the core.
         For the simulator this just prints a  warning that the simulator is selected.
         """
-        self.module.nqrduck_signal.emit(
-            "notification",
-            [
-                "Warning",
-                "Could not set averages to because the simulator is selected as active spectrometer ",
-            ],
-        )
+        logger.debug("Setting frequency to: %s", value)
+        try:
+            self.module.model.target_frequency = float(value)
+            logger.debug("Successfully set frequency to: %s", value)
+        except ValueError:
+            logger.warning("Could not set frequency to: %s", value)
+            self.module.nqrduck_signal.emit(
+                "notification", ["Error", "Could not set frequency to: " + value]
+            )
+            self.module.nqrduck_signal.emit("failure_set_frequency", value)
 
     def set_averages(self, value: str) -> None:
         """This method is called when the set_averages signal is received from the core.
