@@ -26,9 +26,16 @@ class SimulatorController(BaseSpectrometerController):
         dwell_time = self.calculate_dwelltime()
         logger.debug("Dwell time: %s", dwell_time)
 
-        pulse_array = self.translate_pulse_sequence(dwell_time)
+        try:
+            pulse_array = self.translate_pulse_sequence(dwell_time)
+        except ValueError:
+            logger.warning("Could not translate pulse sequence")
+            self.module.nqrduck_signal.emit(
+                "measurement_error", "Could not translate pulse sequence. Did you configure one?"
+            )
+            return
 
-        simulation = self.get_simulation(sample, pulse_array)
+        simulation = self.get_simulation(sample, pulse_array)        
 
         result = simulation.simulate()
 
