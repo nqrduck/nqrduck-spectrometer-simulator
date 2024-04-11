@@ -80,6 +80,9 @@ class SimulatorModel(BaseSpectrometerModel):
             self.NUMBER_ISOCHROMATS,
             1000,
             "Number of isochromats used for the simulation. This influences the computation time.",
+            min_value=0,
+            max_value=10000,
+            spin_box=(True, False),
         )
         self.add_setting(number_of_isochromats_setting, self.SIMULATION)
 
@@ -102,6 +105,9 @@ class SimulatorModel(BaseSpectrometerModel):
             self.NOISE,
             2,
             "Noise",
+            min_value=0,
+            max_value=100,
+            spin_box=(True, False),
         )
         self.add_setting(noise_setting, self.SIMULATION)
 
@@ -163,6 +169,9 @@ class SimulatorModel(BaseSpectrometerModel):
             self.TEMPERATURE,
             300,
             "Temperature",
+            min_value=0.1,
+            max_value=400,
+            spin_box=(True, True),
         )
         self.add_setting(temperature_setting, self.EXPERIMENTAL_Setup)
 
