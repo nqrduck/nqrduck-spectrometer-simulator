@@ -70,6 +70,8 @@ class SimulatorModel(BaseSpectrometerModel):
             self.NUMBER_POINTS,
             8192,
             "Number of points used for the simulation. This influences the dwell time in combination with the total event simulation given by the pulse sequence.",
+            min_value=0,
+            spin_box=(True, False),
         )
         self.add_setting(
             number_of_points_setting,
@@ -80,6 +82,9 @@ class SimulatorModel(BaseSpectrometerModel):
             self.NUMBER_ISOCHROMATS,
             1000,
             "Number of isochromats used for the simulation. This influences the computation time.",
+            min_value=0,
+            max_value=10000,
+            spin_box=(True, False),
         )
         self.add_setting(number_of_isochromats_setting, self.SIMULATION)
 
@@ -87,6 +92,8 @@ class SimulatorModel(BaseSpectrometerModel):
             self.INITIAL_MAGNETIZATION,
             1,
             "Initial magnetization",
+            min_value=0,
+            spin_box=(True, False),
         )
         self.add_setting(initial_magnetization_setting, self.SIMULATION)
 
@@ -95,13 +102,17 @@ class SimulatorModel(BaseSpectrometerModel):
             self.GRADIENT,
             1,
             "Gradient",
+            spin_box=(True, False),
         )
         self.add_setting(gradient_setting, self.SIMULATION)
 
         noise_setting = FloatSetting(
             self.NOISE,
             2,
-            "Noise",
+            "Adds a specified level of random noise to the simulation to mimic real-world signal variations.",
+            min_value=0,
+            max_value=100,
+            spin_box=(True, False),
         )
         self.add_setting(noise_setting, self.SIMULATION)
 
@@ -109,42 +120,48 @@ class SimulatorModel(BaseSpectrometerModel):
         coil_length_setting = FloatSetting(
             self.LENGTH_COIL,
             30e-3,
-            "Length coil",
+            "The length of the sample coil within the hardware setup.",
+            min_value=1e-3,
         )
         self.add_setting(coil_length_setting, self.HARDWARE)
 
         coil_diameter_setting = FloatSetting(
             self.DIAMETER_COIL,
             8e-3,
-            "Diameter coil",
+            "The diameter of the sample coil.",
+            min_value=1e-3,
         )
         self.add_setting(coil_diameter_setting, self.HARDWARE)
 
         number_turns_setting = FloatSetting(
             self.NUMBER_TURNS,
             8,
-            "Number turns",
+            "The total number of turns of the sample coil.",
+            min_value=1,
         )
         self.add_setting(number_turns_setting, self.HARDWARE)
 
         q_factor_transmit_setting = FloatSetting(
             self.Q_FACTOR_TRANSMIT,
             80,
-            "Q factor Transmit",
+            "The quality factor of the transmit path, which has an effect on the field strength for excitation.",
+            min_value=1,
         )
         self.add_setting(q_factor_transmit_setting, self.HARDWARE)
 
         q_factor_receive_setting = FloatSetting(
             self.Q_FACTOR_RECEIVE,
             80,
-            "Q factor Receive",
+            "The quality factor of the receive path, which has an effect on the final SNR.",
+            min_value=1,
         )
         self.add_setting(q_factor_receive_setting, self.HARDWARE)
 
         power_amplifier_power_setting = FloatSetting(
             self.POWER_AMPLIFIER_POWER,
             110,
-            "Power amplifier power",
+            "The power output capability of the power amplifier, determines the strength of pulses that can be generated.",
+            min_value=0.1,
         )
         self.add_setting(
             power_amplifier_power_setting, self.HARDWARE
@@ -153,7 +170,8 @@ class SimulatorModel(BaseSpectrometerModel):
         gain_setting = FloatSetting(
             self.GAIN,
             6000,
-            "Gain of the complete measurement chain",
+            "The amplification factor of the receiver chain, impacting the final measured signal amplitude.",
+            min_value=0.1,
         )
         self.add_setting(
             gain_setting, self.HARDWARE
@@ -162,21 +180,30 @@ class SimulatorModel(BaseSpectrometerModel):
         temperature_setting = FloatSetting(
             self.TEMPERATURE,
             300,
-            "Temperature",
+            "The absolute temperature during the experiment. This influences the SNR of the measurement.",
+            min_value=0.1,
+            max_value=400,
+            spin_box=(True, True),
         )
         self.add_setting(temperature_setting, self.EXPERIMENTAL_Setup)
 
         loss_tx_setting = FloatSetting(
             self.LOSS_TX,
             25,
-            "Loss TX in dB",
+            "The signal loss occurring in the transmission path, affecting the effective RF pulse power.",
+            min_value=0.1,
+            max_value=60,
+            spin_box=(True, True),
         )
         self.add_setting(loss_tx_setting, self.EXPERIMENTAL_Setup)
 
         loss_rx_setting = FloatSetting(
             self.LOSS_RX,
             25,
-            "Loss RX in dB",
+            "The signal loss in the reception path, which can reduce the signal that is ultimately detected.",
+            min_value=0.1,
+            max_value=60,
+            spin_box=(True, True),
         )
         self.add_setting(loss_rx_setting, self.EXPERIMENTAL_Setup)
 
@@ -194,28 +221,31 @@ class SimulatorModel(BaseSpectrometerModel):
         sample_name_setting = StringSetting(
             self.NAME,
             "BiPh3",
-            "Name",
+            "The name of the sample.",
         )
         self.add_setting(sample_name_setting, self.SAMPLE)
 
         density_setting = FloatSetting(
             self.DENSITY,
             1.585e6,
-            "Density",
+            "The density of the sample. This is used to calculate the number of spins in the sample volume.",
+            min_value=0.1,
         )
         self.add_setting(density_setting, self.SAMPLE)
 
         molar_mass_setting = FloatSetting(
             self.MOLAR_MASS,
             440.3,
-            "Molar mass",
+            "The molar mass of the sample. This is used to calculate the number of spins in the sample volume.",
+            min_value=0.1,
         )
         self.add_setting(molar_mass_setting, self.SAMPLE)
 
         resonant_frequency_setting = FloatSetting(
             self.RESONANT_FREQUENCY,
             83.56e6,
-            "Resonant frequency",
+            "The resonant frequency of the observed transition.",
+            min_value=1e5,
         )
         self.add_setting(
             resonant_frequency_setting, self.SAMPLE
@@ -224,56 +254,70 @@ class SimulatorModel(BaseSpectrometerModel):
         gamma_setting = FloatSetting(
             self.GAMMA,
             4.342e7,
-            "Gamma",
+            "The gyromagnetic ratio of the sample’s nuclei.",
+            min_value=0,
         )
         self.add_setting(gamma_setting, self.SAMPLE)
 
+        # This could be updated to a selection setting
         nuclear_spin_setting = FloatSetting(
             self.NUCLEAR_SPIN,
             9 / 2,
-            "Nuclear spin",
+            "The nuclear spin of the sample’s nuclei.",
+            min_value=0,
+
         )
         self.add_setting(nuclear_spin_setting, self.SAMPLE)
 
         spin_factor_setting = FloatSetting(
             self.SPIN_FACTOR,
             2,
-            "Spin factor",
+            "The spin factor represents the scaling coefficient for observable nuclear spin transitions along the x-axis, derived from the Pauli I x 0 -matrix elements.",
+            min_value=0,
         )
         self.add_setting(spin_factor_setting, self.SAMPLE)
 
         powder_factor_setting = FloatSetting(
             self.POWDER_FACTOR,
             0.75,
-            "Powder factor",
+            "A factor representing the crystallinity of the solid sample. A value of 0.75 corresponds to a powder sample.",
+            min_value=0,
+            max_value=1,
+            spin_box=(True, False),
         )
         self.add_setting(powder_factor_setting, self.SAMPLE)
 
         filling_factor_setting = FloatSetting(
             self.FILLING_FACTOR,
             0.7,
-            "Filling factor",
+            "The ratio of the sample volume that occupies the coil’s sensitive volume.",
+            min_value=0,
+            max_value=1,
+            spin_box=(True, False),
         )
         self.add_setting(filling_factor_setting, self.SAMPLE)
 
         t1_setting = FloatSetting(
             self.T1,
             83.5e-5,
-            "T1",
+            "The longitudinal or spin-lattice relaxation time of the sample, influencing signal recovery between pulses.",
+            min_value=1e-6,
         )
         self.add_setting(t1_setting, self.SAMPLE)
 
         t2_setting = FloatSetting(
             self.T2,
             396e-6,
-            "T2",
+            "The transverse or spin-spin relaxation time, determining the rate at which spins dephase and the signal decays in the xy plane",
+            min_value=1e-6,
         )
         self.add_setting(t2_setting, self.SAMPLE)
 
         t2_star_setting = FloatSetting(
             self.T2_STAR,
             50e-6,
-            "T2*",
+            "The effective transverse relaxation time, incorporating effects of EFG inhomogeneities and other dephasing factors.",
+            min_value=1e-6,
         )
         self.add_setting(t2_star_setting, self.SAMPLE)
 
