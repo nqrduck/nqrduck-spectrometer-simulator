@@ -4,8 +4,6 @@ from nqrduck_spectrometer.pulseparameters import TXPulse, RXReadout
 from nqrduck_spectrometer.settings import (
     FloatSetting,
     IntSetting,
-    BooleanSetting,
-    SelectionSetting,
     StringSetting,
 )
 

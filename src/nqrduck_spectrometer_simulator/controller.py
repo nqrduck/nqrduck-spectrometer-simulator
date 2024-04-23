@@ -269,10 +269,9 @@ class SimulatorController(BaseSpectrometerController):
     def translate_rx_event(self) -> tuple:
         """This method translates the RX event of the pulse sequence to the limr object.
 
-
-
         Returns:
-            tuple: A tuple containing the start and stop time of the RX event in µs"""
+        tuple: A tuple containing the start and stop time of the RX event in µs
+        """
         # This is a correction factor for the RX event. The offset of the first pulse is 2.2µs longer than from the specified samples.
         events = self.module.model.pulse_programmer.model.pulse_sequence.events
 
