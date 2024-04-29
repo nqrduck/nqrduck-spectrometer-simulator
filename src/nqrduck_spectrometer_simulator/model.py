@@ -1,3 +1,5 @@
+"""The model module for the simulator spectrometer."""
+
 import logging
 from nqrduck_spectrometer.base_spectrometer_model import BaseSpectrometerModel
 from nqrduck_spectrometer.pulseparameters import TXPulse, RXReadout
@@ -11,6 +13,8 @@ logger = logging.getLogger(__name__)
 
 
 class SimulatorModel(BaseSpectrometerModel):
+    """Model class for the simulator spectrometer."""
+
     # Simulation settings
     NUMBER_POINTS = "N. simulation points"
     NUMBER_ISOCHROMATS = "N. of isochromats"
@@ -61,6 +65,7 @@ class SimulatorModel(BaseSpectrometerModel):
     RX = "RX"
 
     def __init__(self, module):
+        """Initializes the SimulatorModel."""
         super().__init__(module)
 
         # Simulation settings
@@ -161,9 +166,7 @@ class SimulatorModel(BaseSpectrometerModel):
             "The power output capability of the power amplifier, determines the strength of pulses that can be generated.",
             min_value=0.1,
         )
-        self.add_setting(
-            power_amplifier_power_setting, self.HARDWARE
-        )
+        self.add_setting(power_amplifier_power_setting, self.HARDWARE)
 
         gain_setting = FloatSetting(
             self.GAIN,
@@ -171,9 +174,7 @@ class SimulatorModel(BaseSpectrometerModel):
             "The amplification factor of the receiver chain, impacting the final measured signal amplitude.",
             min_value=0.1,
         )
-        self.add_setting(
-            gain_setting, self.HARDWARE
-        )
+        self.add_setting(gain_setting, self.HARDWARE)
 
         temperature_setting = FloatSetting(
             self.TEMPERATURE,
@@ -245,9 +246,7 @@ class SimulatorModel(BaseSpectrometerModel):
             "The resonant frequency of the observed transition.",
             min_value=1e5,
         )
-        self.add_setting(
-            resonant_frequency_setting, self.SAMPLE
-        )
+        self.add_setting(resonant_frequency_setting, self.SAMPLE)
 
         gamma_setting = FloatSetting(
             self.GAMMA,
@@ -263,7 +262,6 @@ class SimulatorModel(BaseSpectrometerModel):
             9 / 2,
             "The nuclear spin of the sample’s nuclei.",
             min_value=0,
-
         )
         self.add_setting(nuclear_spin_setting, self.SAMPLE)
 
@@ -325,7 +323,7 @@ class SimulatorModel(BaseSpectrometerModel):
         self.add_pulse_parameter_option(self.RX, RXReadout)
 
         self.averages = 1
-        self.target_frequency  = 100e6
+        self.target_frequency = 100e6
 
         # Try to load the pulse programmer module
         try:
@@ -339,6 +337,10 @@ class SimulatorModel(BaseSpectrometerModel):
 
     @property
     def averages(self):
+        """The number of averages used for the simulation.
+
+        More averages improve the signal-to-noise ratio of the simulated signal.
+        """
         return self._averages
 
     @averages.setter
@@ -347,9 +349,12 @@ class SimulatorModel(BaseSpectrometerModel):
 
     @property
     def target_frequency(self):
+        """The target frequency for the simulation.
+
+        Doesn't do anything at the moment.
+        """
         return self._target_frequency
-    
+
     @target_frequency.setter
     def target_frequency(self, value):
         self._target_frequency = value
-

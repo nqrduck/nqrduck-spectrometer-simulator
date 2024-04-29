@@ -1,3 +1,5 @@
+"""The controller module for the simulator spectrometer."""
+
 import logging
 import numpy as np
 from nqrduck_spectrometer.base_spectrometer_controller import BaseSpectrometerController
@@ -11,11 +13,15 @@ logger = logging.getLogger(__name__)
 
 
 class SimulatorController(BaseSpectrometerController):
+    """The controller class for the nqrduck simulator module."""
+
     def __init__(self, module):
+        """Initializes the SimulatorController."""
         super().__init__(module)
 
     def start_measurement(self):
         """This method  is called when the start_measurement signal is received from the core.
+
         It will becalled if the simulator is the  active  spectrometer.
         This will start the simulation based on the settings and the pulse sequence.
         """
@@ -31,11 +37,12 @@ class SimulatorController(BaseSpectrometerController):
         except ValueError:
             logger.warning("Could not translate pulse sequence")
             self.module.nqrduck_signal.emit(
-                "measurement_error", "Could not translate pulse sequence. Did you configure one?"
+                "measurement_error",
+                "Could not translate pulse sequence. Did you configure one?",
             )
             return
 
-        simulation = self.get_simulation(sample, pulse_array)        
+        simulation = self.get_simulation(sample, pulse_array)
 
         result = simulation.simulate()
 
@@ -206,7 +213,7 @@ class SimulatorController(BaseSpectrometerController):
         """
         model = self.module.model
 
-        noise = float(model.get_setting_by_name(model.NOISE).value)
+        # noise = float(model.get_setting_by_name(model.NOISE).value)
         simulation = Simulation(
             sample=sample,
             pulse=pulse_array,
@@ -276,7 +283,7 @@ class SimulatorController(BaseSpectrometerController):
         events = self.module.model.pulse_programmer.model.pulse_sequence.events
 
         previous_events_duration = 0
-        offset = 0
+        # offset = 0
         rx_duration = 0
         for event in events:
             logger.debug("Event %s has parameters: %s", event.name, event.parameters)
@@ -306,7 +313,11 @@ class SimulatorController(BaseSpectrometerController):
 
     def set_frequency(self, value: str) -> None:
         """This method is called when the set_frequency signal is received from the core.
+
         For the simulator this just prints a  warning that the simulator is selected.
+
+        Args:
+            value (str) : The new frequency in MHz.
         """
         logger.debug("Setting frequency to: %s", value)
         try:
@@ -321,6 +332,7 @@ class SimulatorController(BaseSpectrometerController):
 
     def set_averages(self, value: str) -> None:
         """This method is called when the set_averages signal is received from the core.
+
         It sets the averages in the model used for the simulation.
 
         Args:
