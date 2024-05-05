@@ -1,6 +1,7 @@
 """The controller module for the simulator spectrometer."""
 
 import logging
+from datetime import datetime
 import numpy as np
 from nqrduck_spectrometer.base_spectrometer_controller import BaseSpectrometerController
 from nqrduck_spectrometer.measurement import Measurement
@@ -57,7 +58,12 @@ class SimulatorController(BaseSpectrometerController):
             tdx = tdx[evidx]
             result = result[evidx]
 
+        # Measurement name date + module + target frequency + averages + sequence name
+        name = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Simulator - {self.module.model.target_frequency / 1e6} MHz - {self.module.model.averages} averages - {self.module.model.pulse_programmer.model.pulse_sequence.name}"
+        logger.debug(f"Measurement name: {name}")
+
         measurement_data = Measurement(
+            name,
             tdx,
             result / simulation.averages,
             sample.resonant_frequency,
