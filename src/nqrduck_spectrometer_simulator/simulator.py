@@ -1,8 +1,8 @@
 """Creation of the Simulator Spectrometer."""
 
 from nqrduck_spectrometer.base_spectrometer import BaseSpectrometer
-from .model import SimulatorModel
-from .view import SimulatorView
-from .controller import SimulatorController
+from .model import DuckSimulatorModel
+from .view import DuckSimulatorView
+from .controller import DuckSimulatorController
 
-Simulator = BaseSpectrometer(SimulatorModel, SimulatorView, SimulatorController)
+Simulator = BaseSpectrometer(DuckSimulatorModel, DuckSimulatorView, DuckSimulatorController)
