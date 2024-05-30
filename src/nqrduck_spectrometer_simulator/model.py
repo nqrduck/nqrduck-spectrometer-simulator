@@ -18,8 +18,6 @@ class DuckSimulatorModel(BaseSpectrometerModel):
         self.quackseq_model = SimulatorModel()
         self.visualize_settings()
 
-        self.quackseq_visuals
-
         # Try to load the pulse programmer module
         try:
             from nqrduck_pulseprogrammer.pulseprogrammer import pulse_programmer
