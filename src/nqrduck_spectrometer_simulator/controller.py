@@ -27,11 +27,17 @@ class DuckSimulatorController(BaseSpectrometerController):
 
         measurement_data = simulator.run_sequence(sequence)
 
-        # Emit the data to the nqrduck core
-        logger.debug("Emitting measurement data")
-        self.module.nqrduck_signal.emit("statusbar_message", "Finished Simulation")
+        if measurement_data:
+            # Emit the data to the nqrduck core
+            logger.debug("Emitting measurement data")
+            self.module.nqrduck_signal.emit("statusbar_message", "Finished Simulation")
 
-        self.module.nqrduck_signal.emit("measurement_data", measurement_data)
+            self.module.nqrduck_signal.emit("measurement_data", measurement_data)
+        else:
+            logger.warning("No measurement data was returned from the simulator")
+            self.module.nqrduck_signal.emit(
+                "measurement_error", "No measurement data was returned from the simulator. Did you set a TX pulse?"
+            )
         
 
     def set_frequency(self, value: str) -> None:
