@@ -3,6 +3,7 @@
 import logging
 from nqrduck_spectrometer.base_spectrometer_controller import BaseSpectrometerController
 from quackseq_simulator.simulator import Simulator
+from quackseq.measurement import MeasurementError
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +28,12 @@ class DuckSimulatorController(BaseSpectrometerController):
 
         measurement_data = simulator.run_sequence(sequence)
 
+        if isinstance(measurement_data, MeasurementError):
+            error_message = measurement_data.error_message
+            logger.error("Error during simulation: %s", error_message)
+            self.module.nqrduck_signal.emit("measurement_error", error_message)
+            return
+
         if measurement_data:
             # Emit the data to the nqrduck core
             logger.debug("Emitting measurement data")
@@ -36,9 +43,9 @@ class DuckSimulatorController(BaseSpectrometerController):
         else:
             logger.warning("No measurement data was returned from the simulator")
             self.module.nqrduck_signal.emit(
-                "measurement_error", "No measurement data was returned from the simulator. Did you set a TX pulse?"
+                "measurement_error",
+                "No measurement data was returned from the simulator. Did you set a TX pulse?",
             )
-        
 
     def set_frequency(self, value: str) -> None:
         """This method is called when the set_frequency signal is received from the core.
