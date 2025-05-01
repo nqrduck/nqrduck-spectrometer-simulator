@@ -52,8 +52,8 @@ convention = "google"
 
 [project.urls]
 "Homepage" = "https://nqrduck.cool"
-"Bug Tracker" = "https://github.com/nqrduck/nqrduck-spectrometer-simulator/issues"
-"Source Code" = "https://github.com/nqrduck/nqrduck-spectrometer-simulator"
+"Bug Tracker" = "https://git.private.coffee/nqrduck/nqrduck-spectrometer-simulator/issues"
+"Source Code" = "https://git.private.coffee/nqrduck/nqrduck-spectrometer-simulator"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/nqrduck_spectrometer_simulator"]

@@ -1,5 +1,5 @@
 # NQRduck Module: Spectrometer Simulator
-This module is a part of the NQRduck project. It is a submodule of the [spectrometer module](https://github.com/nqrduck/nqrduck-spectrometer) for the NQRduck project. It is designed to be used with the [NQRduck](https://github.com/nqrduck) project.
+This module is a part of the NQRduck project. It is a submodule of the [spectrometer module](https://git.private.coffee/nqrduck/nqrduck-spectrometer) for the NQRduck project. It is designed to be used with the [NQRduck](https://git.private.coffee/nqrduck) project.
 
 The module is used to simulate magnetic resonance experiments. It is based on the Bloch simulator by C. Graf [2].
 
@@ -8,10 +8,10 @@ The module is used to simulate magnetic resonance experiments. It is based on th
 
 ### Requirements
 The requirements for the module are handled by the pyproject.toml file. The user needs to install the NQRduck core.
-The simulator module uses the [nqr-blochsimulator](https://github.com/nqrduck/nqr-blochsimulator) project for simulation of the bloch equation. This  module is automatically installed when installing the simulator module.
+The simulator module uses the [nqr-blochsimulator](https://git.private.coffee/nqrduck/nqr-blochsimulator) project for simulation of the bloch equation. This  module is automatically installed when installing the simulator module.
 
 ### Setup
-To install the module you need the NQRduck core. You can find the installation instructions for the NQRduck core [here](https://github.com/nqrduck/nqrduck).
+To install the module you need the NQRduck core. You can find the installation instructions for the NQRduck core [here](https://git.private.coffee/nqrduck/nqrduck).
 
 Ideally you should install the module in a virtual environment. You can create a virtual environment by running the following command in the terminal:
 ```bash
@@ -29,7 +29,7 @@ pip install nqrduck-spectrometer-simulator
 ```
 
 ## Usage
-The pulse sequence is graphically programmed using the [nqrduck-pulseprogrammer](htpps://github.com/nqrduck-pulseprogrammer) within the NQRduck program under the 'Spectrometer' tab. 
+The pulse sequence is graphically programmed using the [nqrduck-pulseprogrammer](htpps://git.private.coffee/nqrduck-pulseprogrammer) within the NQRduck program under the 'Spectrometer' tab. 
 
 
 ### Notes
