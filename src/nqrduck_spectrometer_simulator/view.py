@@ -3,7 +3,7 @@
 from nqrduck_spectrometer.base_spectrometer_view import BaseSpectrometerView
 
 
-class SimulatorView(BaseSpectrometerView):
+class DuckSimulatorView(BaseSpectrometerView):
     """The View class for the simulator module."""
 
     def __init__(self, module):
