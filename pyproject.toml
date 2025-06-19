@@ -28,6 +28,7 @@ dependencies = [
     "pyqt6",
     "numpy",
     "nqr-blochsimulator",
+    "quackseq-simulator"
 ]
 
 [project.entry-points."nqrduck"]

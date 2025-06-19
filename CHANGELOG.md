@@ -1,5 +1,9 @@
 # Changelog
 
+##  Version 0.0.6 (19-06-2025)
+
+- Hotfix: Missing quackseq-simulator dependency.
+
 ## Version 0.0.5 (19-06-2025)
 
 - Change to quackseq pulseprogramming framework (`a65801638fbfaab8bc88d653aa669636883c849a`).
